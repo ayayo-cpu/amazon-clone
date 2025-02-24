@@ -19,8 +19,8 @@ function Product() {
   // console.log(products);
   return (
     <div className={styles.products__container}>
-      {products.map((singleprodct) => {
-        return <ProductCard product={singleprodct} />;
+      {products.map((singleprodct, index) => {
+        return <ProductCard product={singleprodct} key={index} />;
       })}
     </div>
   );

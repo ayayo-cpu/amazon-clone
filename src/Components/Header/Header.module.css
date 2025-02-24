@@ -55,9 +55,10 @@
 }
 
 .search svg {
-  padding: 10.5px;
+  padding: 0.5px;
   background-color: #f3a847;
   color: #1a1a1a;
+  font-size: 36px;
 }
 .search svg:hover {
   background-color: #d49644;
@@ -69,7 +70,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 300px;
+  max-width: 400px;
   gap: 10px;
 }
 .order__container a {
@@ -100,8 +101,8 @@ select {
 .cart span {
   position: absolute;
   font-weight: bold;
-  top: -3px;
-  font-size: 26px;
+  top: 0px;
+  font-size: 24px;
   background-color: #1a1a1a;
   left: 19px;
   padding-inline: 2px;

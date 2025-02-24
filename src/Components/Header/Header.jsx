@@ -6,6 +6,7 @@ import { BiCartAdd } from "react-icons/bi";
 import { SlLocationPin } from "react-icons/sl";
 import { FiShoppingCart } from "react-icons/fi";
 import LowerHeader from "./LowerHeader";
+import { Link } from "react-router-dom";
 
 MdOutlineShoppingCart;
 function Header() {
@@ -14,12 +15,12 @@ function Header() {
       <section className={styles.header__container}>
         <div className={styles.logo__container}>
           {/* Logo */}
-          <a href="/">
+          <Link to="/">
             <img
               src="https://pngimg.com/uploads/amazon/amazon_PNG25.png"
               alt="amazon logo"
             />
-          </a>
+          </Link>
           {/* delivery */}
           <span>
             {/* icon */}
@@ -47,7 +48,7 @@ function Header() {
           {/* right side link */}
           <div className={styles.order__container}>
             {/* Language */}
-            <a href="" className={styles.language}>
+            <Link to="" className={styles.language}>
               <img
                 src="https://pngimg.com/uploads/flags/small/flags_PNG14580.png"
                 alt="english language logo"
@@ -55,24 +56,24 @@ function Header() {
               <select>
                 <option value="">EN</option>
               </select>
-            </a>
-            <a href="">
+            </Link>
+            <Link to="/auth">
               <div>
                 <p>Sign In</p>
                 <span>Account & Lists</span>
               </div>
-            </a>
+            </Link>
             {/* orders */}
-            <a href="">
+            <Link to="/orders">
               <p>returns</p>
               <span>& Orders</span>
-            </a>
+            </Link>
             {/* cart */}
-            <a className={styles.cart}>
+            <Link to="/cart" className={styles.cart}>
               {/* icon */}
               {<BiCartAdd />}
               <span>0</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
