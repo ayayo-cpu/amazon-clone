@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Header.module.css";
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -7,11 +7,14 @@ import { SlLocationPin } from "react-icons/sl";
 import { FiShoppingCart } from "react-icons/fi";
 import LowerHeader from "./LowerHeader";
 import { Link } from "react-router-dom";
+import { DataContext } from "../DataProvider/DataProvider";
 
 MdOutlineShoppingCart;
 function Header() {
+    const [{basket}, dispatch] = useContext(DataContext);
+  
   return (
-    <>
+    <section className={styles.header__fixed}>
       <section className={styles.header__container}>
         <div className={styles.logo__container}>
           {/* Logo */}
@@ -72,13 +75,13 @@ function Header() {
             <Link to="/cart" className={styles.cart}>
               {/* icon */}
               {<BiCartAdd />}
-              <span>0</span>
+              <span>{basket.length}</span>
             </Link>
           </div>
         </div>
       </section>
       <LowerHeader />
-    </>
+    </section>
   );
 }
 
