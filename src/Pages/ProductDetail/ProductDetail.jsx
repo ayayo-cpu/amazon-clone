@@ -6,23 +6,36 @@ import axios from "axios";
 import ProductCard from "../../Components/product/productCard";
 import { useEffect } from "react";
 import { producturl } from "../../Api/enpPoints";
+import Loader from "../../Components/Loader/Loader";
 
 function ProductDetail() {
   const { productId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState({});
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`${producturl}/products/${productId}`)
       .then((res) => {
         // console.log("jalqabaa", res);
         setProduct(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
   }, []);
   console.log("kuno kana", product);
-  return <Layout>{<ProductCard product={product} />}</Layout>; //product
+  return (
+    <Layout>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ProductCard product={product} flex={true} renderDesc={true} />
+      )}
+    </Layout>
+  );
 }
 
 export default ProductDetail;
