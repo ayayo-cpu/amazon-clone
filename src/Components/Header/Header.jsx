@@ -21,7 +21,7 @@ function Header() {
       <section className={styles.header__container}>
         <div className={styles.logo__container}>
           {/* Logo */}
-          <Link to="/">
+          <Link to="/" id="home">
             <img
               src="https://pngimg.com/uploads/amazon/amazon_PNG25.png"
               alt="amazon logo"

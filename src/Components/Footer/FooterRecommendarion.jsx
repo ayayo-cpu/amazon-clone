@@ -1,6 +1,13 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
 function FooterRecommendarion() {
+  const scroller = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <section className={styles.footerRecommendarion}>
       <div className={styles.reco}>
@@ -10,8 +17,10 @@ function FooterRecommendarion() {
           New Customer? <a href="">stay here</a>
         </p>
       </div>
-      <div className={styles.bactToTop}>
-        <p>Back to top</p>
+      <div>
+        <button className={styles.bactToTop} onClick={scroller}>
+          Back to top
+        </button>
       </div>
     </section>
   );
