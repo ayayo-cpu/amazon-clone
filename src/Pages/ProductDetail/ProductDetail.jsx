@@ -3,10 +3,10 @@ import Layout from "../../Components/Layout/Layout";
 import styles from "./ProductDetail.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ProductCard from "../../Components/product/productCard";
 import { useEffect } from "react";
 import { producturl } from "../../Api/enpPoints";
 import Loader from "../../Components/Loader/Loader";
+import ProductCard from "../../Components/Product/ProductCard";
 
 function ProductDetail() {
   const { productId } = useParams();
@@ -26,13 +26,18 @@ function ProductDetail() {
         setIsLoading(false);
       });
   }, []);
-  console.log("kuno kana", product);
+  // console.log("kuno kana", product);
   return (
     <Layout>
       {isLoading ? (
         <Loader />
       ) : (
-        <ProductCard product={product} flex={true} renderDesc={true} />
+        <ProductCard
+          product={product}
+          flex={true}
+          renderDesc={true}
+          renderAdd={true}
+        />
       )}
     </Layout>
   );

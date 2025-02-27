@@ -7,7 +7,7 @@ import { DataContext } from "../DataProvider/DataProvider";
 import { Type } from "../../Utility/action.type";
 
 function ProductCard(props) {
-  const { product, flex, renderDesc } = props;
+  const { product, flex, renderDesc, renderAdd } = props;
   const flexClass = flex ? styles.product__flexed : "";
   const { image, title, id, rating, price, description } = product;
   // console.log("kun waan gama dhufa jiru", description);
@@ -39,9 +39,12 @@ function ProductCard(props) {
           {/* price */}
           <CurrencyFormat amount={price} />
         </div>
-        <button className={styles.button} onClick={addToCart}>
-          Add to cart
-        </button>
+
+        {renderAdd && (
+          <button className={styles.button} onClick={addToCart}>
+            Add to cart
+          </button>
+        )}
       </div>
     </div>
   );

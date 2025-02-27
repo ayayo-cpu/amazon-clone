@@ -11,8 +11,11 @@ import { DataContext } from "../DataProvider/DataProvider";
 
 MdOutlineShoppingCart;
 function Header() {
-    const [{basket}, dispatch] = useContext(DataContext);
-  
+  const [{ basket }, dispatch] = useContext(DataContext);
+  const totatItems = basket.reduce((amount, item) => {
+    return item.amount + amount;
+  }, 0);
+
   return (
     <section className={styles.header__fixed}>
       <section className={styles.header__container}>
@@ -75,7 +78,7 @@ function Header() {
             <Link to="/cart" className={styles.cart}>
               {/* icon */}
               {<BiCartAdd />}
-              <span>{basket.length}</span>
+              <span>{totatItems}</span>
             </Link>
           </div>
         </div>
