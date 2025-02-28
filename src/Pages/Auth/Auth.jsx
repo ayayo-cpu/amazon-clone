@@ -1,15 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Layout from "../../Components/Layout/Layout";
 import { Link } from "react-router-dom";
 import styels from "./Signup.module.css";
 import { auth } from "../../Utility/firebase";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { DataContext } from "../../Components/DataProvider/DataProvider";
+import { Type } from "../../Utility/action.type";
 
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  // console.log(email, password);
 
-  console.log(email, password);
+  const [{ user }, dispatch] = useContext(DataContext);
+  console.log(user);
+
+  const authHandler = (e) => {
+    e.preventDefault();
+    console.log(e.target.name);
+    if (e.target.name == "signin") {
+      //firebase auth
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          // console.log(userCredential);
+          // ...
+
+          dispatch({
+            type: Type.SET_USER,
+            user: userCredential.user,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // console.log(userCredential);
+
+          dispatch({
+            type: Type.SET_USER,
+            user: userCredential.user,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <section className={styels.login}>
       <div>
@@ -42,7 +86,12 @@ function Auth() {
             />
           </div>
 
-          <button type="submit" className={styels.signin_btn}>
+          <button
+            type="submit"
+            onClick={authHandler}
+            className={styels.signin_btn}
+            name="signin"
+          >
             Sign In
           </button>
         </form>
@@ -52,7 +101,12 @@ function Auth() {
           clone of Amazon. Please see our Privacy Notice, Cookie Notice, and
           Interest-Based Ads Notice.
         </p>
-        <button className={styels.register_btn}>
+        <button
+          type="submit"
+          onClick={authHandler}
+          className={styels.register_btn}
+          name="sigup"
+        >
           Create your Amazon Account
         </button>
       </div>
