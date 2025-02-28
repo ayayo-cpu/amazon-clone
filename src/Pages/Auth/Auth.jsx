@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../Components/Layout/Layout";
 import { Link } from "react-router-dom";
 import styels from "./Signup.module.css";
+import { auth } from "../../Utility/firebase";
+
 function Auth() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  console.log(email, password);
   return (
     <section className={styels.login}>
       <div>
@@ -18,11 +25,21 @@ function Auth() {
         <form action="">
           <div>
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="email"
+            />
           </div>
           <div>
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="password"
+            />
           </div>
 
           <button type="submit" className={styels.signin_btn}>
@@ -35,7 +52,9 @@ function Auth() {
           clone of Amazon. Please see our Privacy Notice, Cookie Notice, and
           Interest-Based Ads Notice.
         </p>
-        <button className={styels.register_btn}>Create your Amazon Account</button>
+        <button className={styels.register_btn}>
+          Create your Amazon Account
+        </button>
       </div>
     </section>
   );
