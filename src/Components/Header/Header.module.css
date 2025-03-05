@@ -58,7 +58,6 @@
   margin-right: -2px;
   border: none;
 }
-
 .search svg {
   padding: 0.5px;
   background-color: #f3a847;
@@ -97,7 +96,6 @@ select {
 .language img {
   width: 30%;
 }
-
 .cart {
   position: relative;
 
@@ -133,7 +131,6 @@ select {
   list-style: none;
   gap: 5px;
 }
-
 .lower__container ul li {
   padding: 8px;
 }
@@ -151,7 +148,6 @@ select {
   .lower__container ul li:not(:first-child) {
     display: none;
   }
-
   .language {
     display: none;
   }

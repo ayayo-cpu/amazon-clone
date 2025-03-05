@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Layout from "../../Components/Layout/Layout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styels from "./Signup.module.css";
 import { auth } from "../../Utility/firebase";
 import {
@@ -9,21 +9,30 @@ import {
 } from "firebase/auth";
 import { DataContext } from "../../Components/DataProvider/DataProvider";
 import { Type } from "../../Utility/action.type";
+import { BeatLoader } from "react-spinners";
 
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState({
+    signIn: false,
+    signUp: false,
+  });
   // console.log(email, password);
 
   const [{ user }, dispatch] = useContext(DataContext);
-  console.log(user);
+  const navigate = useNavigate()
+
+
+  // console.log(user);
 
   const authHandler = (e) => {
     e.preventDefault();
     console.log(e.target.name);
     if (e.target.name == "signin") {
       //firebase auth
+      setLoading({ ...loading, signIn: true });
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
@@ -34,11 +43,16 @@ function Auth() {
             type: Type.SET_USER,
             user: userCredential.user,
           });
+          setLoading({ ...loading, signIn: false });
+          navigate("/")
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
+          setError(error.message);
+          setLoading({ ...loading, signIn: false });
         });
     } else {
+      setLoading({ ...loading, signUp: true });
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // console.log(userCredential);
@@ -47,9 +61,12 @@ function Auth() {
             type: Type.SET_USER,
             user: userCredential.user,
           });
+          setLoading({ ...loading, signUp: false });
+          navigate("/");
         })
         .catch((error) => {
-          console.log(error);
+          setLoading({ ...loading, signUp: false });
+          setError(error.message);
         });
     }
   };
@@ -57,7 +74,7 @@ function Auth() {
   return (
     <section className={styels.login}>
       <div>
-        <Link>
+        <Link to="/">
           <img
             src="https://www.hatchwise.com/wp-content/uploads/2022/08/Amazon-Logo-2000-present-1024x576.jpeg"
             alt=""
@@ -92,7 +109,7 @@ function Auth() {
             className={styels.signin_btn}
             name="signin"
           >
-            Sign In
+            {loading.signIn ? <BeatLoader color="#0c91db" /> : "Sign In"}
           </button>
         </form>
         {/* Aggrement */}
@@ -107,8 +124,15 @@ function Auth() {
           className={styels.register_btn}
           name="sigup"
         >
-          Create your Amazon Account
+          {loading.signUp ? (
+            <BeatLoader color="#0c91db" />
+          ) : (
+            "Create your Amazon Account"
+          )}
         </button>
+        {error && (
+          <small style={{ padding: "20px", color: "red" }}>{error}</small>
+        )}
       </div>
     </section>
   );

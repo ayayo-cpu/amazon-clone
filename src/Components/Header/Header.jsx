@@ -8,10 +8,11 @@ import { FiShoppingCart } from "react-icons/fi";
 import LowerHeader from "./LowerHeader";
 import { Link } from "react-router-dom";
 import { DataContext } from "../DataProvider/DataProvider";
+import {auth} from "../../Utility/firebase"
 
 MdOutlineShoppingCart;
 function Header() {
-  const [{ basket }, dispatch] = useContext(DataContext);
+  const [{ basket, user }, dispatch] = useContext(DataContext);
   const totatItems = basket.reduce((amount, item) => {
     return item.amount + amount;
   }, 0);
@@ -63,10 +64,19 @@ function Header() {
                 <option value="">EN</option>
               </select>
             </Link>
-            <Link to="/auth">
+            <Link to={!user && "/auth"}>
               <div>
-                <p>Sign In</p>
-                <span>Account & Lists</span>
+                {user ? (
+                  <>
+                    <p>hello {user?.email?.split("@")[0]}</p>
+                    <span onClick={()=>auth.signOut()}>Sign Out</span>
+                  </>
+                ) : (
+                  <>
+                    <p>Hello, Sign In</p>
+                    <span>Account & Lists</span>
+                  </>
+                )}
               </div>
             </Link>
             {/* orders */}
@@ -78,7 +88,8 @@ function Header() {
             <Link to="/cart" className={styles.cart}>
               {/* icon */}
               {<BiCartAdd />}
-              <span>{totatItems}</span>
+              {/* <span>{totatItems}</span> */}
+              <span>{basket.length}</span>
             </Link>
           </div>
         </div>
