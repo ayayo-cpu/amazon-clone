@@ -5,7 +5,7 @@ import axios from "axios";
 import { producturl } from "../../Api/enpPoints";
 import styles from "./Result.module.css";
 import Loader from "../../Components/Loader/Loader";
-import ProductCard from "../../Components/Product/ProductCard";
+import ProductCard from "../../Components/product/ProductCard";
 function Result() {
   const { categoryName } = useParams();
   const [results, setResults] = useState([]);
