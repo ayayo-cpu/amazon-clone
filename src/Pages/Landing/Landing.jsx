@@ -2,7 +2,7 @@ import React from "react";
 import CarouselEffect from "../../Components/Carousel/Carousel";
 import Category from "../../Components/Category/Category";
 // import Product from "../../Components/product/product";
-import Product from "../../Components/Product/Product";
+import Product from "../../Components/product/Product";
 import Layout from "../../Components/Layout/Layout";
 
 function Landing() {
