@@ -6,7 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { producturl } from "../../Api/enpPoints";
 import Loader from "../../Components/Loader/Loader";
-import ProductCard from "../../Components/Product/ProductCard";
+import ProductCard from "../../Components/product/ProductCard";
 
 function ProductDetail() {
   const { productId } = useParams();
