@@ -31,6 +31,9 @@
   margin-top: -10%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   gap: 20px;
   place-items: center;
 }

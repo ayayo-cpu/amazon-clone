@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Layout from "../../Components/Layout/Layout";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styels from "./Signup.module.css";
 import { auth } from "../../Utility/firebase";
 import {
@@ -22,8 +22,9 @@ function Auth() {
   // console.log(email, password);
 
   const [{ user }, dispatch] = useContext(DataContext);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  const navStateData = useLocation();
+  console.log(navStateData);
 
   // console.log(user);
 
@@ -44,7 +45,7 @@ function Auth() {
             user: userCredential.user,
           });
           setLoading({ ...loading, signIn: false });
-          navigate("/")
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((error) => {
           // console.log(error);
@@ -62,7 +63,7 @@ function Auth() {
             user: userCredential.user,
           });
           setLoading({ ...loading, signUp: false });
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((error) => {
           setLoading({ ...loading, signUp: false });
@@ -83,6 +84,18 @@ function Auth() {
       </div>
       <div className={styels.login__container}>
         <h1>Sign In</h1>
+        {navStateData?.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {navStateData?.state?.msg}
+          </small>
+        )}
         <form action="">
           <div>
             <label htmlFor="email">Email</label>
